@@ -5,10 +5,11 @@ const hhRequest = new HhRequest({
   timeout: TIME_OUT,
   interceptors: {
     requestInterceptor: (config) => {
-      // const token = ""
-      // if (token) {
-      //   config.headers.Authorization = `Bearer ${token}`
-      // }
+      const token = ""
+      if (token) {
+        if (!config.headers) config.headers = {}
+        config.headers.Authorization = `Bearer ${token}`
+      }
       console.log("请求成功")
       return config
     },

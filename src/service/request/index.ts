@@ -28,11 +28,29 @@ class HhRequest {
       }
     )
     this.instance.interceptors.response.use(
-      (config) => {
+      (res) => {
         console.log("全局的响应拦截，响应成功")
-        return config
+        const data = res.data
+        switch (data.returnCode) {
+          case "-1001":
+            console.log("请求失败")
+
+            break
+
+          default:
+            return data
+            break
+        }
       },
       (err) => {
+        switch (err.response.status) {
+          case 404:
+            console.log("页面找不到")
+            break
+
+          default:
+            break
+        }
         console.log("全局的响应拦截，响应失败")
         return err
       }
