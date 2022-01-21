@@ -23,8 +23,17 @@ app.mount("#app")
 //     }
 //   }
 // })
-hhRequest.request({
-  url: "/home/multidata",
-  method: "GET",
-  showLoading: false
-})
+interface DataType {
+  data: any
+  returnCode: string
+  success: boolean
+}
+hhRequest
+  .get<DataType>({
+    url: "/home/multidata"
+  })
+  .then((res) => {
+    console.log(res.data)
+    console.log(res.returnCode)
+    console.log(res.success)
+  })
