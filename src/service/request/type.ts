@@ -7,4 +7,5 @@ export interface HhRequestInterceptors {
 }
 export interface HhRequestConfig extends AxiosRequestConfig {
   interceptors?: HhRequestInterceptors
+  showLoading?: boolean
 }
