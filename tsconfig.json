@@ -1,20 +1,33 @@
 {
   "compilerOptions": {
+    //  目标代码
     "target": "esnext",
+    //  目标代码使用的模块化方案
     "module": "esnext",
     "strict": true,
+    //  对jsx进行什么样的处理
     "jsx": "preserve",
+    // 辅助的导入功能
     "importHelpers": true,
+    // 按照node方式解析模块
     "moduleResolution": "node",
+    // 跳过一些库的类型检查
     "skipLibCheck": true,
+    // export default/module.exports 能不能混合使用
+    // es module 和common.js
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    // 需不需要生成映射文件（ts->js）
     "sourceMap": true,
+    // 文件路径解析，基本url
     "baseUrl": ".",
+    // 指定具体要解析使用类型
     "types": ["webpack-env"],
+    // 路径解析（类似于webpack alias）
     "paths": {
       "@/*": ["src/*"]
     },
+    // 可以指定在项目中可以使用哪里库的类型
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
   "include": [
