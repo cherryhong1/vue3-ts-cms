@@ -7,6 +7,7 @@ import "./service"
 import "element-plus/dist/index.css"
 import "normalize.css"
 import "./assets/css/index.css"
+import "windi.css"
 const app = createApp(App)
 app.use(store)
 app.use(router)

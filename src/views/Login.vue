@@ -1,3 +1,3 @@
 <template>
-  <div class="login">login</div>
+  <div class="login p-80px">login</div>
 </template>
