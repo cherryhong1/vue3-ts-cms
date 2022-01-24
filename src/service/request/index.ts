@@ -71,7 +71,7 @@ class HhRequest {
       }
     )
   }
-  request<T>(config: HhRequestConfig): Promise<T> {
+  request<T>(config: HhRequestConfig<T>): Promise<T> {
     return new Promise((resolve, reject) => {
       //  单个接口请求
       if (config.interceptors?.requestInterceptor) {
@@ -85,7 +85,7 @@ class HhRequest {
         .then((res) => {
           //  单个接口响应
           if (config.interceptors?.responseInterceptor) {
-            // res = config.interceptors.responseInterceptor(res)
+            res = config.interceptors.responseInterceptor(res)
           }
           console.log(res)
           this.showLoading = DEFAULT_LOADING
@@ -97,16 +97,16 @@ class HhRequest {
         })
     })
   }
-  get<T>(config: HhRequestConfig): Promise<T> {
+  get<T>(config: HhRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "GET" })
   }
-  post<T>(config: HhRequestConfig): Promise<T> {
+  post<T>(config: HhRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "POST" })
   }
-  delete<T>(config: HhRequestConfig): Promise<T> {
+  delete<T>(config: HhRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "DELETE" })
   }
-  put<T>(config: HhRequestConfig): Promise<T> {
+  put<T>(config: HhRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "PUT" })
   }
 }
