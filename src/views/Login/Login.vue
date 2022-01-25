@@ -2,8 +2,8 @@
   <div class="login h-full flex justify-center items-center flex-col">
     <h1 class="text-4xl text-white leading-26">后台管理系统</h1>
     <div class="w-300px">
-      <el-tabs type="border-card" class="w-full" stretch>
-        <el-tab-pane>
+      <el-tabs type="border-card" class="w-full" stretch v-model="activeTab">
+        <el-tab-pane name="account">
           <template #label>
             <span class="flex justify-center items-center">
               <el-icon size="18" class="mr-3px"><avatar /></el-icon>账户登录
@@ -11,7 +11,7 @@
           </template>
           <account-vue ref="accountRef"></account-vue>
         </el-tab-pane>
-        <el-tab-pane>
+        <el-tab-pane name="phone">
           <template #label>
             <span class="flex justify-center items-center">
               <el-icon size="18" class="mr-3px"><iphone /></el-icon>手机号登录
@@ -39,13 +39,17 @@ export default defineComponent({
     const isRememberPwd = ref(true)
     const accountRef = ref<InstanceType<typeof accountVue>>()
     const phoneRef = ref<InstanceType<typeof phoneVue>>()
+    const activeTab = ref("account")
     const handleLogin = () => {
-      accountRef.value?.accountValid()
+      if (activeTab.value === "account") {
+        accountRef.value?.accountValid(isRememberPwd.value)
+      } else if (activeTab.value === "phone") phoneRef.value?.phoneValid()
     }
     return {
       isRememberPwd,
       accountRef,
       phoneRef,
+      activeTab,
       handleLogin
     }
   },

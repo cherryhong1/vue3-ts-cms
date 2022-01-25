@@ -5,7 +5,7 @@
         <el-input v-model="account.name"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input v-model="account.password"></el-input>
+        <el-input v-model="account.password" show-password></el-input>
       </el-form-item>
     </el-form>
   </div>
@@ -14,11 +14,14 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from "vue"
 import { ElForm } from "element-plus"
+import localCache from "../../../utils/cache"
+import { useStore } from "vuex"
 export default defineComponent({
   setup() {
+    const store = useStore()
     const account = reactive({
-      name: "",
-      password: ""
+      name: localCache.getCache("name") ?? "",
+      password: localCache.getCache("password") ?? ""
     })
     const accountRule = {
       name: [
@@ -47,11 +50,21 @@ export default defineComponent({
       ]
     }
     const accountForm = ref<InstanceType<typeof ElForm>>()
-    const accountValid = () => {
+    const accountValid = (isRememberPwd: boolean) => {
       accountForm.value?.validate((valid) => {
-        console.log(valid)
+        if (valid) {
+          if (isRememberPwd) {
+            localCache.setCache("name", account.name)
+            localCache.setCache("password", account.password)
+          } else {
+            localCache.removeCache("name")
+            localCache.removeCache("password")
+          }
+          store.dispatch("loginStore/accountAction", { ...account })
+        }
       })
     }
+
     return {
       account,
       accountRule,
