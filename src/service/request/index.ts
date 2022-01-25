@@ -32,22 +32,22 @@ class HhRequest {
             text: "Loading"
           })
         }
-        console.log("全局的请求拦截，请求成功")
+        // console.log("全局的请求拦截，请求成功")
         return config
       },
       (err) => {
-        console.log("全局的请求拦截，请求失败")
+        // console.log("全局的请求拦截，请求失败")
         return err
       }
     )
     this.instance.interceptors.response.use(
       (res) => {
         this.loading?.close()
-        console.log("全局的响应拦截，响应成功")
+        // console.log("全局的响应拦截，响应成功")
         const data = res.data
         switch (data.returnCode) {
           case "-1001":
-            console.log("请求失败")
+            // console.log("请求失败")
 
             break
 
@@ -60,13 +60,13 @@ class HhRequest {
         this.loading?.close()
         switch (err.response.status) {
           case 404:
-            console.log("页面找不到")
+            // console.log("页面找不到")
             break
 
           default:
             break
         }
-        console.log("全局的响应拦截，响应失败")
+        // console.log("全局的响应拦截，响应失败")
         return err
       }
     )

@@ -3,6 +3,7 @@ import hhRequest from "./service"
 import App from "./App.vue"
 import router from "./router"
 import store from "./store"
+import * as Icons from "@element-plus/icons-vue"
 import "./service"
 import "element-plus/dist/index.css"
 import "normalize.css"
@@ -12,6 +13,11 @@ const app = createApp(App)
 app.use(store)
 app.use(router)
 app.mount("#app")
+
+// 注册全局组件
+Object.keys(Icons).forEach((key) => {
+  app.component(key, Icons[key as keyof typeof Icons])
+})
 // hhRequest.request({
 //   url: "/home/multidata",
 //   method: "GET",
@@ -26,17 +32,17 @@ app.mount("#app")
 //     }
 //   }
 // })
-interface DataType {
-  data: any
-  returnCode: string
-  success: boolean
-}
-hhRequest
-  .get<DataType>({
-    url: "/home/multidata"
-  })
-  .then((res) => {
-    console.log(res.data)
-    console.log(res.returnCode)
-    console.log(res.success)
-  })
+// interface DataType {
+//   data: any
+//   returnCode: string
+//   success: boolean
+// }
+// hhRequest
+//   .get<DataType>({
+//     url: "/home/multidata"
+//   })
+//   .then((res) => {
+//     console.log(res.data)
+//     console.log(res.returnCode)
+//     console.log(res.success)
+//   })
