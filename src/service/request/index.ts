@@ -1,7 +1,7 @@
 import axios from "axios"
 import type { AxiosInstance } from "axios"
 import type { HhRequestInterceptors, HhRequestConfig } from "./type"
-import { ElLoading } from "element-plus"
+import { ElLoading, ElMessage } from "element-plus"
 import { LoadingInstance } from "element-plus/lib/components/loading/src/loading"
 const DEFAULT_LOADING = true
 class HhRequest {
@@ -45,15 +45,21 @@ class HhRequest {
         this.loading?.close()
         // console.log("全局的响应拦截，响应成功")
         const data = res.data
-        switch (data.returnCode) {
-          case "-1001":
-            // console.log("请求失败")
-
-            break
-
-          default:
-            return data
-            break
+        if (data && data.code !== undefined) {
+          switch (data.code) {
+            case "-1001":
+              ElMessage.error(data)
+              break
+            case 0:
+              return data
+              break
+            default:
+              return data
+              break
+          }
+        } else {
+          ElMessage.error(data)
+          return false
         }
       },
       (err) => {
@@ -87,7 +93,6 @@ class HhRequest {
           if (config.interceptors?.responseInterceptor) {
             res = config.interceptors.responseInterceptor(res)
           }
-          console.log(res)
           this.showLoading = DEFAULT_LOADING
           resolve(res)
         })

@@ -1,8 +1,9 @@
 import { createApp } from "vue"
-import hhRequest from "./service"
+// import hhRequest from "./service"
 import App from "./App.vue"
 import router from "./router"
 import store from "./store"
+import { setToken } from "@/store"
 import * as Icons from "@element-plus/icons-vue"
 import "./service"
 import "element-plus/dist/index.css"
@@ -18,6 +19,7 @@ app.mount("#app")
 Object.keys(Icons).forEach((key) => {
   app.component(key, Icons[key as keyof typeof Icons])
 })
+setToken()
 // hhRequest.request({
 //   url: "/home/multidata",
 //   method: "GET",

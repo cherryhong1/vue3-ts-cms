@@ -13,5 +13,7 @@ const store = createStore<IRootState>({
     loginStore
   }
 })
-
+export function setToken() {
+  store.dispatch("loginStore/setLocal")
+}
 export default store
