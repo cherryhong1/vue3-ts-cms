@@ -8,13 +8,18 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/main",
     name: "Main",
-    component: () => import("../views/Main/main.vue")
+    component: () => import("../views/main/main.vue")
   },
   {
     path: "/login",
     name: "Login",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Login/Login.vue")
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "404",
+    component: () => import("../views/no-found/index.vue")
   }
 ]
 
