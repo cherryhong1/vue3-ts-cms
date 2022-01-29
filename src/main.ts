@@ -12,6 +12,7 @@ import "./assets/css/index.css"
 import "windi.css"
 const app = createApp(App)
 app.use(store)
+setToken()
 app.use(router)
 app.mount("#app")
 
@@ -19,7 +20,7 @@ app.mount("#app")
 Object.keys(Icons).forEach((key) => {
   app.component(key, Icons[key as keyof typeof Icons])
 })
-setToken()
+
 // hhRequest.request({
 //   url: "/home/multidata",
 //   method: "GET",
