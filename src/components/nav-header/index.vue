@@ -15,7 +15,7 @@
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue"
 import userVue from "./src/user.vue"
-import HHBreadcrumb, { IBreadcrumb } from "@/base-ui/breadcrumb"
+import HHBreadcrumb from "@/base-ui/breadcrumb"
 import { useRoute } from "vue-router"
 import { useStore } from "@/store/index"
 import { pathMatchBreadcrumb } from "@/utils/mapMenu"
