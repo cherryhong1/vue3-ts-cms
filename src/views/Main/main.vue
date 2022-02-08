@@ -1,15 +1,20 @@
 <template>
   <div class="h-full w-full">
     <el-container class="h-full w-full">
-      <el-aside :width="collapse ? '60px' : '210px'" class="h-full">
+      <el-aside
+        :width="collapse ? '60px' : '210px'"
+        class="h-full border-gray-100 border-r-2"
+      >
         <menuVue :collapse="collapse"></menuVue>
       </el-aside>
       <el-container>
         <el-header class="h-70px">
           <headerVue @changeFold="changeFold"></headerVue>
         </el-header>
-        <el-main class="">
-          <router-view></router-view>
+        <el-main class="border-t-2 bg-gray-100">
+          <div class="w-full bg-white">
+            <router-view></router-view>
+          </div>
         </el-main>
       </el-container>
     </el-container>

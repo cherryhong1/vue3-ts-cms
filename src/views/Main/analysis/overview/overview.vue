@@ -1,16 +1,22 @@
 <template>
   <div class="overview">
-    <h2>overview</h2>
+    <HHForm v-bind="searchFormConfig"></HHForm>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue"
-
+import HHForm from "@/base-ui/form"
+import searchFormConfig from "./config/searchFormConfig"
 export default defineComponent({
   name: "overview",
   setup() {
-    return {}
+    return {
+      searchFormConfig
+    }
+  },
+  components: {
+    HHForm
   }
 })
 </script>
