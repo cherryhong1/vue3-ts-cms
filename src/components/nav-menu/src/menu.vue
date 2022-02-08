@@ -4,7 +4,7 @@
       <img src="~@/assets/img/logo1.png" alt="" class="w-150px" />
     </div>
     <el-menu
-      default-active="39"
+      :default-active="defaultMenu"
       class="el-menu-vertical-demo border-r-0"
       :collapse="collapse"
       @open="handleOpen"
@@ -44,10 +44,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue"
+import { defineComponent, computed, ref } from "vue"
 import { useStore } from "@/store/index"
-import { useRouter } from "vue-router"
+import { useRouter, useRoute } from "vue-router"
 // import localCache from "@/utils/cache"
+import { pathMatchMenus } from "@/utils/mapMenu"
 export default defineComponent({
   props: {
     collapse: {
@@ -60,12 +61,19 @@ export default defineComponent({
     const handleOpen = (key: string, keyPath: string[]) => {
       console.log(key, keyPath)
     }
+
     const handleClose = (key: string, keyPath: string[]) => {
       console.log(key, keyPath)
     }
     // const userMenus = localCache.getCache("userMenus")
     const userMenus = computed(() => store.state.loginStore.userMenus)
     const router = useRouter()
+    const route = useRoute()
+    console.log(route.path)
+    const curMenu = pathMatchMenus(userMenus.value, route.path)
+    console.log(curMenu)
+    const defaultMenu = ref(curMenu.id + "")
+
     const handleMenuItem = (item: any) => {
       router.push({
         path: item.url ?? "/no-found"
@@ -73,6 +81,7 @@ export default defineComponent({
     }
     return {
       userMenus,
+      defaultMenu,
       handleOpen,
       handleClose,
       handleMenuItem
