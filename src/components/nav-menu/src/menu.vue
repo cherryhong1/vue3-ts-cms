@@ -65,13 +65,11 @@ export default defineComponent({
     const handleClose = (key: string, keyPath: string[]) => {
       console.log(key, keyPath)
     }
-    // const userMenus = localCache.getCache("userMenus")
+
     const userMenus = computed(() => store.state.loginStore.userMenus)
     const router = useRouter()
     const route = useRoute()
-    console.log(route.path)
     const curMenu = pathMatchMenus(userMenus.value, route.path)
-    console.log(curMenu)
     const defaultMenu = ref(curMenu.id + "")
 
     const handleMenuItem = (item: any) => {

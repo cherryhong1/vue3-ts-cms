@@ -5,8 +5,7 @@
         ><expand v-if="isFold" /><fold v-else
       /></el-icon>
       <div class="flex items-center ml-20px">
-        <span>系统管理</span>/
-        <span>用户管理</span>
+        <HHBreadcrumb :breadcrumbs="breadcrumbs"></HHBreadcrumb>
       </div>
     </div>
     <userVue></userVue>
@@ -14,21 +13,36 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue"
+import { defineComponent, ref, computed } from "vue"
 import userVue from "./src/user.vue"
+import HHBreadcrumb, { IBreadcrumb } from "@/base-ui/breadcrumb"
+import { useRoute } from "vue-router"
+import { useStore } from "@/store/index"
+import { pathMatchBreadcrumb } from "@/utils/mapMenu"
 export default defineComponent({
   emits: ["changeFold"],
   components: {
-    userVue
+    userVue,
+    HHBreadcrumb
   },
   setup(props, { emit }) {
     const isFold = ref(false)
+
+    const breadcrumbs = computed(() => {
+      const route = useRoute()
+      const store = useStore()
+      const userMenus = store.state.loginStore.userMenus
+      const currentPath = route.path
+      return pathMatchBreadcrumb(userMenus, currentPath)
+    })
+
     const handleFoldClick = () => {
       isFold.value = !isFold.value
       emit("changeFold", isFold.value)
     }
     return {
       isFold,
+      breadcrumbs,
       handleFoldClick
     }
   }
