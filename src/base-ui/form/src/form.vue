@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="header">
+      <slot name="header"></slot>
+    </div>
     <el-form ref="formRef" label-width="100px">
       <el-row>
         <template v-for="(formItem, index) in formItems" :key="index">
@@ -46,14 +49,11 @@
             </el-form-item>
           </el-col>
         </template>
-        <el-col v-bind="colLayout">
-          <el-form-item :label-width="labelWidth" :style="itemLayout">
-            <el-button type="primary">查询</el-button>
-            <el-button>重置</el-button>
-          </el-form-item>
-        </el-col>
       </el-row>
     </el-form>
+    <div class="footer">
+      <slot name="footer"> </slot>
+    </div>
   </div>
 </template>
 

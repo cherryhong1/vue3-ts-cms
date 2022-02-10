@@ -14,11 +14,12 @@
         <template v-if="item.type === 1">
           <el-sub-menu :index="item.id + ''">
             <template #title>
-              <i
+              <!-- <i
                 v-if="item.icon"
                 :class="item.icon"
                 class="el-icon text-blue-500"
-              ></i>
+              ></i> -->
+              <el-icon><location /></el-icon>
               <span>{{ item.name }}</span>
             </template>
             <template v-for="subItem in item.children" :key="subItem.id">
@@ -26,7 +27,8 @@
                 :index="subItem.id + ''"
                 @click="handleMenuItem(subItem)"
               >
-                <i v-if="subItem.icon" :class="subItem.icon"></i>
+                <!-- <i v-if="subItem.icon" :class="subItem.icon"></i> -->
+                <el-icon><setting /></el-icon>
                 <span>{{ subItem.name }}</span>
               </el-menu-item>
             </template>
@@ -34,7 +36,8 @@
         </template>
         <template v-else-if="item.type === 2">
           <el-menu-item :index="item.id + ''">
-            <i v-if="item.icon" :class="item.icon"></i>
+            <!-- <i v-if="item.icon" :class="item.icon"></i> -->
+            <el-icon><icon-menu /></el-icon>
             <span>{{ item.name }}</span>
           </el-menu-item>
         </template>
