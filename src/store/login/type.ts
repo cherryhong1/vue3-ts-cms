@@ -28,7 +28,3 @@ export interface IUserMenus {
   sort: number
   children?: any
 }
-export interface IData<T = any> {
-  data: T
-  code: number
-}

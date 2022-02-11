@@ -1,6 +1,7 @@
 import { IAccount } from "./type"
 import hhRequest from "@/service"
-import { IData, ILoginData, IUserInfo, IUserMenus } from "@/store/login/type"
+import { ILoginData, IUserInfo, IUserMenus } from "@/store/login/type"
+import { IData } from "@/store/type"
 enum loginApi {
   loginUrl = "/login",
   getUserInfoByIdUrl = "/users",

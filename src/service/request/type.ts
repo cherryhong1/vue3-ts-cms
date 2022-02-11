@@ -9,3 +9,8 @@ export interface HhRequestConfig<T = AxiosResponse> extends AxiosRequestConfig {
   interceptors?: HhRequestInterceptors<T>
   showLoading?: boolean
 }
+
+export interface IList {
+  list: any[]
+  totalCount: number
+}

@@ -37,7 +37,7 @@
         <template v-else-if="item.type === 2">
           <el-menu-item :index="item.id + ''">
             <!-- <i v-if="item.icon" :class="item.icon"></i> -->
-            <el-icon><icon-menu /></el-icon>
+            <el-icon><menu /></el-icon>
             <span>{{ item.name }}</span>
           </el-menu-item>
         </template>
