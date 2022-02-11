@@ -11,7 +11,7 @@
           />
         </template>
         <template #createAt="scope">
-          {{ scope.row.createAt }}
+          {{ $filter.format(scope.row.createAt) }}
         </template>
       </HHTable>
     </div>
@@ -70,6 +70,12 @@ export default defineComponent({
         prop: "createAt",
         minWidth: "180",
         slotName: "createAt"
+      },
+      {
+        label: "更新时间",
+        prop: "updateAt",
+        minWidth: "180",
+        slotName: "updateAt"
       }
     ]
 

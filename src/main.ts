@@ -3,6 +3,7 @@ import { createApp } from "vue"
 import App from "./App.vue"
 import router from "./router"
 import store from "./store"
+import { globalRegister } from "./global"
 import { setToken } from "@/store"
 import * as Icons from "@element-plus/icons-vue"
 import "./service"
@@ -12,6 +13,7 @@ import "./assets/css/index.css"
 import "windi.css"
 const app = createApp(App)
 app.use(store)
+app.use(globalRegister)
 setToken()
 app.use(router)
 app.mount("#app")
