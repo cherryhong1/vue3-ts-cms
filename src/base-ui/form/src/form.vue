@@ -76,7 +76,7 @@ export default defineComponent({
     },
     itemLayout: {
       type: Object,
-      default: () => ({ padding: "10px 5px" })
+      default: () => ({ padding: "10px 5px 0 " })
     },
     colLayout: {
       type: Object,

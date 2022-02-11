@@ -1,8 +1,15 @@
 <template>
   <div class="user">
     <pageSearch :searchFormConfig="searchFormConfig"></pageSearch>
-    <div class="p-20px">
-      <HHTable :tableData="tableData" :tableColumns="tableColumns">
+    <div class="p-20px p-t-0 border-top-20px border-gray-100">
+      <HHTable
+        :tableData="tableData"
+        :tableColumns="tableColumns"
+        :showIndex="showIndex"
+        :showSelection="showSelection"
+        title="用户列表"
+        @selectionChange="selectionChange"
+      >
         <template #status="scope">
           <el-switch
             :active-value="1"
@@ -11,7 +18,25 @@
           />
         </template>
         <template #createAt="scope">
-          {{ $filter.format(scope.row.createAt) }}
+          {{ $filter.utcDateFormat(scope.row.createAt) }}
+        </template>
+        <template #updateAt="scope">
+          {{ $filter.utcDateFormat(scope.row.updateAt) }}
+        </template>
+        <template #operate>
+          <span>
+            <el-button plain type="text" :icon="Edit" size="small"
+              >编辑</el-button
+            >
+            <el-button
+              plain
+              type="text"
+              :icon="Delete"
+              class="color-red-700"
+              size="small"
+              >删除</el-button
+            >
+          </span>
         </template>
       </HHTable>
     </div>
@@ -25,6 +50,7 @@ import pageSearch from "@/components/page-search"
 import searchFormConfig from "./config/searchFormConfig"
 import HHTable from "@/base-ui/table"
 import { ITableColumn } from "@/base-ui/table"
+import { Edit, Delete } from "@element-plus/icons-vue"
 export default defineComponent({
   name: "user",
   components: {
@@ -68,21 +94,36 @@ export default defineComponent({
       {
         label: "创建时间",
         prop: "createAt",
-        minWidth: "180",
+        minWidth: "110",
         slotName: "createAt"
       },
       {
         label: "更新时间",
         prop: "updateAt",
-        minWidth: "180",
+        minWidth: "110",
         slotName: "updateAt"
+      },
+      {
+        label: "操作",
+        prop: "operate",
+        minWidth: "180",
+        slotName: "operate"
       }
     ]
-
+    const showIndex = true
+    const showSelection = true
+    const selectionChange = (val: ITableColumn[]) => {
+      console.log(val)
+    }
     return {
       searchFormConfig,
       tableData,
-      tableColumns
+      tableColumns,
+      Edit,
+      Delete,
+      showIndex,
+      showSelection,
+      selectionChange
     }
   }
 })
