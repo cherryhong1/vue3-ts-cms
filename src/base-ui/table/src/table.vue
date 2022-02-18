@@ -77,7 +77,7 @@ export default defineComponent({
     title: {
       type: String,
       default: ""
-    },
+    }
   },
   emits: ["selectionChange"],
   setup(props, { emit }) {
