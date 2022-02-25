@@ -1,6 +1,6 @@
 <template>
   <div class="login h-full flex justify-center items-center flex-col">
-    <h1 class="text-4xl text-white leading-26">后台管理系统</h1>
+    <h1 class="text-4xl text-white leading-26">后台管理系统  </h1>
     <div class="w-300px">
       <el-tabs type="border-card" class="w-full" stretch v-model="activeTab">
         <el-tab-pane name="account">
