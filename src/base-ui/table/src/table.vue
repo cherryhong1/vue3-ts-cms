@@ -1,11 +1,12 @@
 <template>
   <div>
     <div class="header m-b-20px">
-      <slot name="header">
-        <el-row justify="space-around">
+      <el-row justify="space-between">
+        <slot name="header">
           <span>{{ title }}</span>
-        </el-row>
-      </slot>
+        </slot>
+        <slot name="headerHandle"></slot>
+      </el-row>
     </div>
     <el-table
       :data="tableData"
@@ -33,9 +34,9 @@
         </el-table-column>
       </template>
     </el-table>
-    <div class="footer">
+    <div class="footer flex justify-end p-t-20px p-b-20px">
       <slot name="footer">
-        <!-- <el-pagination
+        <el-pagination
           v-model:currentPage="pageConfig.currentPage"
           v-model:page-size="pageConfig.pageSize"
           :page-sizes="[100, 200, 300, 400]"
@@ -47,14 +48,14 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
         >
-        </el-pagination> -->
+        </el-pagination>
       </slot>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref } from "vue"
+import { defineComponent, PropType, reactive, ref } from "vue"
 import { ITableColumn } from "./type"
 export default defineComponent({
   props: {
@@ -93,13 +94,18 @@ export default defineComponent({
     const handleCurrentChange = (val: number) => {
       console.log(`current page: ${val}`)
     }
+    const pageConfig = reactive({
+      currentPage: 1,
+      pageSize: 100
+    })
     return {
       small,
       background,
       disabled,
       handleSelectionChange,
       handleSizeChange,
-      handleCurrentChange
+      handleCurrentChange,
+      pageConfig
     }
   }
 })

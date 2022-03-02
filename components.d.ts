@@ -11,6 +11,7 @@ declare module 'vue' {
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
     ElCol: typeof import('element-plus/es')['ElCol']
+    ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']
@@ -27,6 +28,7 @@ declare module 'vue' {
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElOption: typeof import('element-plus/es')['ElOption']
+    ElPagination: typeof import('element-plus/es')['ElPagination']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
@@ -37,6 +39,7 @@ declare module 'vue' {
     ElTabs: typeof import('element-plus/es')['ElTabs']
     Menu: typeof import('./src/components/nav-menu/src/menu.vue')['default']
     NavHeader: typeof import('./src/components/nav-header/index.vue')['default']
+    PageContent: typeof import('./src/components/page-content/src/page-content.vue')['default']
     PageSearch: typeof import('./src/components/page-search/src/page-search.vue')['default']
     User: typeof import('./src/components/nav-header/src/user.vue')['default']
   }
