@@ -12,10 +12,10 @@ const systemModule: Module<ISystem, IRootState> = {
     }
   },
   mutations: {
-    changeUserList(state, userList: any[]) {
+    changeUsersList(state, userList: any[]) {
       state.userList = userList
     },
-    changeUserCount(state, userCount: number) {
+    changeUsersCount(state, userCount: number) {
       state.userCount = userCount
     }
   },
@@ -23,14 +23,14 @@ const systemModule: Module<ISystem, IRootState> = {
     async userListAction({ commit }, payload: any) {
       const result = await getUserList(payload.data)
       const { list, totalCount } = result.data
-      commit("changeUserList", list)
-      commit("changeUserCount", totalCount)
+      commit("changeUsersList", list)
+      commit("changeUsersCount", totalCount)
     },
     async getPageListData({ commit }, payload: any) {
       const result = await getPageListData(payload.pageUrl, payload.queryInfo)
       const { list, totalCount } = result.data
-      commit("changeUserList", list)
-      commit("changeUserCount", totalCount)
+      commit("changeUsersList", list)
+      commit("changeUsersCount", totalCount)
     }
   },
   getters: {}

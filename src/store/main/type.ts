@@ -1,6 +1,6 @@
 export interface IMain {
   usersList: any[]
-  rolesList: any[]
+  roleList: any[]
   usersCount: number
-  rolesCount: number
+  roleCount: number
 }
