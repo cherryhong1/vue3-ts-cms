@@ -62,13 +62,17 @@ export default {
   },
   setup(props: any) {
     const store = useStore()
-    store.dispatch("mainStore/getPageListData", {
-      pageName: props.pageName,
-      queryInfo: {
-        offset: 0,
-        size: 10
-      }
-    })
+    const getData = (queryInfo: any = {}) => {
+      store.dispatch("mainStore/getPageListData", {
+        pageName: props.pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10,
+          ...queryInfo
+        }
+      })
+    }
+    getData()
     const tableData = computed(() =>
       store.getters["mainStore/pageDataList"](props.pageName)
     )
@@ -80,7 +84,8 @@ export default {
       tableData,
       Edit,
       Delete,
-      selectionChange
+      selectionChange,
+      getData
     }
   }
 }
