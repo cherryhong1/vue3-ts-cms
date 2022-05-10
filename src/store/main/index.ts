@@ -2,7 +2,6 @@ import { IRootState } from "../type"
 import { Module } from "vuex"
 import { IMain } from "./type"
 import { getPageListData } from "@/service/request/main/main"
-import { List } from "@element-plus/icons-vue/dist/types"
 const MainModule: Module<IMain, IRootState> = {
   namespaced: true,
   state() {
