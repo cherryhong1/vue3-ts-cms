@@ -37,14 +37,14 @@
     <div class="footer flex justify-end p-t-20px p-b-20px">
       <slot name="footer">
         <el-pagination
-          v-model:currentPage="pageConfig.currentPage"
-          v-model:page-size="pageConfig.pageSize"
-          :page-sizes="[100, 200, 300, 400]"
+          :currentPage="pageConfig.currentPage"
+          :page-size="pageConfig.pageSize"
+          :page-sizes="[10, 20, 50, 100]"
           :small="small"
           :disabled="disabled"
           :background="background"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="400"
+          :total="pageCount"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
         >
@@ -55,7 +55,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, reactive, ref } from "vue"
+import { defineComponent, PropType, ref } from "vue"
 import { ITableColumn } from "./type"
 export default defineComponent({
   props: {
@@ -78,9 +78,20 @@ export default defineComponent({
     title: {
       type: String,
       default: ""
+    },
+    pageConfig: {
+      type: Object,
+      default: () => ({
+        currentPage: 0,
+        pageSize: 10
+      })
+    },
+    pageCount: {
+      type: Number,
+      default: 0
     }
   },
-  emits: ["selectionChange"],
+  emits: ["selectionChange", "update:pageConfig"],
   setup(props, { emit }) {
     const handleSelectionChange = (val: ITableColumn[]) => {
       emit("selectionChange", val)
@@ -88,24 +99,19 @@ export default defineComponent({
     const small = ref(false)
     const background = ref(false)
     const disabled = ref(false)
-    const handleSizeChange = (val: number) => {
-      console.log(`${val} items per page`)
+    const handleSizeChange = (pageSize: number) => {
+      emit("update:pageConfig", { ...props.pageConfig, pageSize })
     }
-    const handleCurrentChange = (val: number) => {
-      console.log(`current page: ${val}`)
+    const handleCurrentChange = (currentPage: number) => {
+      emit("update:pageConfig", { ...props.pageConfig, currentPage })
     }
-    const pageConfig = reactive({
-      currentPage: 1,
-      pageSize: 100
-    })
     return {
       small,
       background,
       disabled,
       handleSelectionChange,
       handleSizeChange,
-      handleCurrentChange,
-      pageConfig
+      handleCurrentChange
     }
   }
 })

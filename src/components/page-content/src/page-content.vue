@@ -2,6 +2,8 @@
   <div class="p-20px p-t-0 border-top-20px border-gray-100">
     <HHTable
       :tableData="tableData"
+      :pageCount="pageCount"
+      v-model:pageConfig="pageConfig"
       v-bind="contentTableConfig"
       @selectionChange="selectionChange"
     >
@@ -45,7 +47,7 @@ import HHTable from "@/base-ui/table"
 import { ITableColumn } from "@/base-ui/table"
 import { Edit, Delete } from "@element-plus/icons-vue"
 import { useStore } from "vuex"
-import { computed } from "vue"
+import { computed, ref, watch } from "vue"
 export default {
   components: {
     HHTable
@@ -62,12 +64,17 @@ export default {
   },
   setup(props: any) {
     const store = useStore()
+    const pageConfig = ref({ currentPage: 0, pageSize: 10 })
+    watch(pageConfig, () => getData())
     const getData = (queryInfo: any = {}) => {
       store.dispatch("mainStore/getPageListData", {
         pageName: props.pageName,
         queryInfo: {
-          offset: 0,
-          size: 10,
+          offset:
+            pageConfig.value.currentPage - 1 < 0
+              ? 0
+              : (pageConfig.value.currentPage - 1) * pageConfig.value.pageSize,
+          size: pageConfig.value.pageSize,
           ...queryInfo
         }
       })
@@ -77,6 +84,10 @@ export default {
       store.getters["mainStore/pageDataList"](props.pageName)
     )
 
+    const pageCount = computed(() => {
+      return store.getters["mainStore/pageDataCount"](props.pageName)
+    })
+
     const selectionChange = (val: ITableColumn[]) => {
       console.log(val)
     }
@@ -85,7 +96,9 @@ export default {
       Edit,
       Delete,
       selectionChange,
-      getData
+      getData,
+      pageConfig,
+      pageCount
     }
   }
 }
