@@ -3,4 +3,6 @@ export interface IMain {
   roleList: any[]
   usersCount: number
   roleCount: number
+  goodsList: any[]
+  goodsCount: number
 }

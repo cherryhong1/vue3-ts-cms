@@ -25,7 +25,11 @@
         v-if="showIndex"
       ></el-table-column>
       <template v-for="tableColumn in tableColumns" :key="tableColumn.prop">
-        <el-table-column v-bind="tableColumn" align="center">
+        <el-table-column
+          v-bind="tableColumn"
+          align="center"
+          show-overflow-tooltip
+        >
           <template #default="scope">
             <slot :name="tableColumn.slotName" :row="scope.row">{{
               scope.row[tableColumn.prop]

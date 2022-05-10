@@ -6,6 +6,7 @@ import store from "./store"
 import { globalRegister } from "./global"
 import { setToken } from "@/store"
 import * as Icons from "@element-plus/icons-vue"
+import { globalComponents } from "./global/register-component"
 import "./service"
 import "element-plus/dist/index.css"
 import "normalize.css"
@@ -22,7 +23,9 @@ app.mount("#app")
 Object.keys(Icons).forEach((key) => {
   app.component(key, Icons[key as keyof typeof Icons])
 })
-
+globalComponents.forEach((item: any) => {
+  app.component(item, item)
+})
 // hhRequest.request({
 //   url: "/home/multidata",
 //   method: "GET",

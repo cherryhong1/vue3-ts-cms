@@ -8,7 +8,7 @@
       @selectionChange="selectionChange"
     >
       <template #headerHandle>
-        <el-button type="primary">新建用户</el-button>
+        <el-button type="primary">新建</el-button>
       </template>
       <template #status="scope">
         <el-switch
@@ -37,6 +37,15 @@
             >删除</el-button
           >
         </span>
+      </template>
+      <template
+        v-for="otherSlot in otherSlots"
+        :key="otherSlot.prop"
+        #[otherSlot.slotName]="scope"
+      >
+        <template v-if="otherSlot.slotName">
+          <slot :name="otherSlot.slotName" :row="scope.row"></slot>
+        </template>
       </template>
     </HHTable>
   </div>
@@ -91,6 +100,18 @@ export default {
     const selectionChange = (val: ITableColumn[]) => {
       console.log(val)
     }
+    const otherSlots = props.contentTableConfig.tableColumns.filter(
+      (item: { slotName: string }) => {
+        if (
+          item.slotName === "status" ||
+          item.slotName === "createAt" ||
+          item.slotName === "updateAt" ||
+          item.slotName === "operate"
+        )
+          return false
+        return true
+      }
+    )
     return {
       tableData,
       Edit,
@@ -98,7 +119,8 @@ export default {
       selectionChange,
       getData,
       pageConfig,
-      pageCount
+      pageCount,
+      otherSlots
     }
   }
 }
