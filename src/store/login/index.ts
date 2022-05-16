@@ -9,14 +9,16 @@ import {
 } from "@/service/request/login/login"
 import { IAccount } from "@/service/request/login/type"
 import localCache from "@/utils/cache"
-import { mapMenu } from "@/utils/mapMenu"
+import { mapMenu, userMenusToPermission } from "@/utils/mapMenu"
+
 const loginStore: Module<ILoginState, IRootState> = {
   namespaced: true,
   state() {
     return {
       token: "",
       userInfo: {},
-      userMenus: []
+      userMenus: [],
+      permissions: []
     }
   },
   getters: {},
@@ -33,6 +35,8 @@ const loginStore: Module<ILoginState, IRootState> = {
       routes.forEach((route) => {
         router.addRoute("main", route)
       })
+      const permissions = userMenusToPermission(userMenus)
+      state.permissions = permissions
     }
   },
   actions: {

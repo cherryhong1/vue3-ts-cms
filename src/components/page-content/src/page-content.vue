@@ -7,7 +7,7 @@
       v-bind="contentTableConfig"
       @selectionChange="selectionChange"
     >
-      <template #headerHandle>
+      <template #headerHandle v-if="isCreate">
         <el-button type="primary">新建</el-button>
       </template>
       <template #status="scope">
@@ -25,7 +25,7 @@
       </template>
       <template #operate>
         <span>
-          <el-button plain type="text" :icon="Edit" size="small"
+          <el-button plain type="text" :icon="Edit" size="small" v-if="isUpdate"
             >编辑</el-button
           >
           <el-button
@@ -34,6 +34,7 @@
             :icon="Delete"
             class="color-red-700"
             size="small"
+            v-if="isDelete"
             >删除</el-button
           >
         </span>
@@ -57,6 +58,7 @@ import { ITableColumn } from "@/base-ui/table"
 import { Edit, Delete } from "@element-plus/icons-vue"
 import { useStore } from "vuex"
 import { computed, ref, watch } from "vue"
+import { usePermission } from "@/hooks/usePermission"
 export default {
   components: {
     HHTable
@@ -73,9 +75,14 @@ export default {
   },
   setup(props: any) {
     const store = useStore()
+    const isCreate = usePermission(props.pageName, "create")
+    const isDelete = usePermission(props.pageName, "delete")
+    const isUpdate = usePermission(props.pageName, "update")
+    const isQuery = usePermission(props.pageName, "query")
     const pageConfig = ref({ currentPage: 0, pageSize: 10 })
     watch(pageConfig, () => getData())
     const getData = (queryInfo: any = {}) => {
+      // if (!isQuery) return
       store.dispatch("mainStore/getPageListData", {
         pageName: props.pageName,
         queryInfo: {
@@ -120,7 +127,11 @@ export default {
       getData,
       pageConfig,
       pageCount,
-      otherSlots
+      otherSlots,
+      isCreate,
+      isDelete,
+      isUpdate,
+      isQuery
     }
   }
 }
