@@ -11,7 +11,9 @@ const MainModule: Module<IMain, IRootState> = {
       roleList: [],
       roleCount: 0,
       goodsCount: 0,
-      goodsList: []
+      goodsList: [],
+      menuList: [],
+      menuCount: 0
     }
   },
   mutations: {
@@ -32,6 +34,12 @@ const MainModule: Module<IMain, IRootState> = {
     },
     changeGoodsCount(state, count: number) {
       state.goodsCount = count
+    },
+    changeMenuList(state, list: any[]) {
+      state.menuList = list
+    },
+    changeMenuCount(state, count: number) {
+      state.menuCount = count
     }
   },
   actions: {

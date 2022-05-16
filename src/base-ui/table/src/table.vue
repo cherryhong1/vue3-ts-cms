@@ -13,6 +13,7 @@
       border
       style="width: 100%"
       @selection-change="handleSelectionChange"
+      v-bind="childrenProps"
     >
       <el-table-column
         type="selection"
@@ -38,7 +39,10 @@
         </el-table-column>
       </template>
     </el-table>
-    <div class="footer flex justify-end p-t-20px p-b-20px">
+    <div
+      class="footer flex justify-end p-t-20px p-b-20px"
+      v-if="showPagination"
+    >
       <slot name="footer">
         <el-pagination
           :currentPage="pageConfig.currentPage"
@@ -79,6 +83,10 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
+    showPagination: {
+      type: Boolean,
+      default: true
+    },
     title: {
       type: String,
       default: ""
@@ -93,6 +101,10 @@ export default defineComponent({
     pageCount: {
       type: Number,
       default: 0
+    },
+    childrenProps: {
+      type: Object,
+      default: () => ({})
     }
   },
   emits: ["selectionChange", "update:pageConfig"],
