@@ -1,3 +1,4 @@
+import { ElMessage } from "element-plus"
 import { IRootState } from "../type"
 import { Module } from "vuex"
 import { IMain } from "./type"
@@ -80,7 +81,20 @@ const MainModule: Module<IMain, IRootState> = {
     async deletePageData({ dispatch }, payload: any) {
       const { pageName, id } = payload
       const pageUrl = `/${pageName}/${id}`
-      await deletePageData(pageUrl)
+      const result = await deletePageData(pageUrl)
+      const { code } = result
+      if (code !== 0) {
+        ElMessage({
+          type: "warning",
+          message: "删除失败"
+        })
+      } else {
+        ElMessage({
+          type: "success",
+          message: "删除成功"
+        })
+      }
+      console.log(result)
       dispatch("getPageListData", {
         queryInfo: {
           offset: 0,
