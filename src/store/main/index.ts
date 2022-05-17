@@ -1,7 +1,7 @@
 import { IRootState } from "../type"
 import { Module } from "vuex"
 import { IMain } from "./type"
-import { getPageListData } from "@/service/request/main/main"
+import { getPageListData, deletePageData } from "@/service/request/main/main"
 const MainModule: Module<IMain, IRootState> = {
   namespaced: true,
   state() {
@@ -76,6 +76,18 @@ const MainModule: Module<IMain, IRootState> = {
       //   default:
       //     break
       // }
+    },
+    async deletePageData({ dispatch }, payload: any) {
+      const { pageName, id } = payload
+      const pageUrl = `/${pageName}/${id}`
+      await deletePageData(pageUrl)
+      dispatch("getPageListData", {
+        queryInfo: {
+          offset: 0,
+          size: 10
+        },
+        pageName
+      })
     }
   },
   getters: {

@@ -23,7 +23,7 @@
       <template #updateAt="scope">
         {{ $filter.utcDateFormat(scope.row.updateAt) }}
       </template>
-      <template #operate>
+      <template #operate="scope">
         <span>
           <el-button plain type="text" :icon="Edit" size="small" v-if="isUpdate"
             >编辑</el-button
@@ -35,6 +35,7 @@
             class="color-red-700"
             size="small"
             v-if="isDelete"
+            @click="handleClickDelete(scope.row)"
             >删除</el-button
           >
         </span>
@@ -119,6 +120,13 @@ export default {
         return true
       }
     )
+
+    const handleClickDelete = (row: any) => {
+      store.dispatch("mainStore/deletePageData", {
+        pageName: props.pageName,
+        id: row.id
+      })
+    }
     return {
       tableData,
       Edit,
@@ -131,7 +139,8 @@ export default {
       isCreate,
       isDelete,
       isUpdate,
-      isQuery
+      isQuery,
+      handleClickDelete
     }
   }
 }
