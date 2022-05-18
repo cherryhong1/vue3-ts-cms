@@ -5,6 +5,7 @@
     //  目标代码使用的模块化方案
     "module": "esnext",
     "strict": true,
+    "noImplicitAny": false,
     //  对jsx进行什么样的处理
     "jsx": "preserve",
     // 辅助的导入功能

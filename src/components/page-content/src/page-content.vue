@@ -8,7 +8,7 @@
       @selectionChange="selectionChange"
     >
       <template #headerHandle v-if="isCreate">
-        <el-button type="primary">新建</el-button>
+        <el-button type="primary" @click="handleClickCreate">新建</el-button>
       </template>
       <template #status="scope">
         <el-switch
@@ -25,7 +25,13 @@
       </template>
       <template #operate="scope">
         <span>
-          <el-button plain type="text" :icon="Edit" size="small" v-if="isUpdate"
+          <el-button
+            plain
+            type="text"
+            :icon="Edit"
+            size="small"
+            v-if="isUpdate"
+            @click="handleClickEdit(scope.row)"
             >编辑</el-button
           >
           <el-button
@@ -74,7 +80,8 @@ export default {
       required: true
     }
   },
-  setup(props: any) {
+  emits: ["createEmit", "editEmit"],
+  setup(props: any, { emit }) {
     const store = useStore()
     const isCreate = usePermission(props.pageName, "create")
     const isDelete = usePermission(props.pageName, "delete")
@@ -127,6 +134,12 @@ export default {
         id: row.id
       })
     }
+    const handleClickCreate = () => {
+      emit("createEmit")
+    }
+    const handleClickEdit = (item: any) => {
+      emit("editEmit", item)
+    }
     return {
       tableData,
       Edit,
@@ -140,7 +153,9 @@ export default {
       isDelete,
       isUpdate,
       isQuery,
-      handleClickDelete
+      handleClickDelete,
+      handleClickCreate,
+      handleClickEdit
     }
   }
 }

@@ -7,6 +7,7 @@ export interface IFormItem {
   rules?: any[]
   options?: any[]
   otherOptions?: any
+  isHidden?: boolean
 }
 // 输入框
 export interface iInput {
