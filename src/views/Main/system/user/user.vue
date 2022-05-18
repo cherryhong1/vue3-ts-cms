@@ -16,6 +16,7 @@
       ref="pageModalRef"
       :defaultInfo="defaultInfo"
       :modalFormConfig="modalFormConfig"
+      :title="title"
     ></pageModal>
   </div>
 </template>
@@ -52,8 +53,13 @@ export default defineComponent({
         passwordItem.isHidden = true
       }
     }
-    const [pageModalRef, defaultInfo, handleCreateClick, handleEditClick] =
-      usePageModal(createFn, editFn)
+    const [
+      pageModalRef,
+      title,
+      defaultInfo,
+      handleCreateClick,
+      handleEditClick
+    ] = usePageModal("用户", createFn, editFn)
     return {
       searchFormConfig,
       contentTableConfig,
@@ -64,7 +70,8 @@ export default defineComponent({
       handleCreateClick,
       handleEditClick,
       defaultInfo,
-      pageModalRef
+      pageModalRef,
+      title
     }
   }
 })
