@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="accountForm">
     <el-form ref="accountForm" :model="account" :rules="accountRule">
       <el-form-item label="账号" prop="name">
         <el-input v-model="account.name"></el-input>
@@ -75,4 +75,8 @@ export default defineComponent({
 })
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.accountForm /deep/ .el-input__icon {
+  margin-top: 9px;
+}
+</style>

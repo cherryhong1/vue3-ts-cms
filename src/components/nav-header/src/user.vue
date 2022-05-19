@@ -13,6 +13,7 @@
         <el-dropdown-menu>
           <el-dropdown-item>个人信息</el-dropdown-item>
           <el-dropdown-item>修改密码</el-dropdown-item>
+          <el-dropdown-item @click="handleExitClick">退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>
@@ -22,6 +23,8 @@
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue"
 import { useStore } from "@/store"
+import { useRouter } from "vue-router"
+import localCache from "@/utils/cache"
 export default defineComponent({
   setup() {
     const store = useStore()
@@ -31,10 +34,15 @@ export default defineComponent({
     const userName = computed(() => {
       return store.state.loginStore.userInfo.realname
     })
-    console.log(userName.value)
+    const router = useRouter()
+    const handleExitClick = () => {
+      router.push("/login")
+      localCache.clearCache()
+    }
     return {
       circleUrl,
-      userName
+      userName,
+      handleExitClick
     }
   }
 })

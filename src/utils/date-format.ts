@@ -14,5 +14,5 @@ export function timestampDateFormat(
   value: number,
   format: string = DATE_FORMAT_DEFAULT
 ): string {
-  return dayjs.unix(value).format(format)
+  return dayjs.unix(value).utcOffset(8).format(format)
 }

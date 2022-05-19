@@ -40,12 +40,12 @@ const loginStore: Module<ILoginState, IRootState> = {
     }
   },
   actions: {
-    async accountAction({ commit }, payload: IAccount) {
+    async accountAction({ commit, dispatch }, payload: IAccount) {
       const result = await accountRequest(payload)
       const { id, token } = result.data
       localCache.setCache("token", token)
       commit("changeToken", token)
-
+      dispatch("getInitDataAction", null, { root: true })
       const userInfoResult = await getUserInfoById(id)
       const userInfo = userInfoResult.data
       localCache.setCache("userInfo", userInfo)
@@ -60,9 +60,10 @@ const loginStore: Module<ILoginState, IRootState> = {
     phoneAction({ commit }, payload: any) {
       console.log(commit, payload)
     },
-    setLocal({ commit }) {
+    setLocal({ commit, dispatch }) {
       const token = localCache.getCache("token")
       if (token) {
+        dispatch("getInitDataAction", null, { root: true })
         commit("changeToken", token)
       }
       const userInfo = localCache.getCache("userInfo")

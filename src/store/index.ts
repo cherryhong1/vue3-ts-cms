@@ -45,7 +45,7 @@ const store = createStore<IRootState>({
 })
 export function setToken() {
   store.dispatch("loginStore/setLocal")
-  store.dispatch("getInitDataAction")
+  // store.dispatch("getInitDataAction")
 }
 export function useStore(): Store<IStoreType> {
   return useVuexStore()
