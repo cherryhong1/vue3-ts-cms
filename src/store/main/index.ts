@@ -2,7 +2,12 @@ import { ElMessage } from "element-plus"
 import { IRootState } from "../type"
 import { Module } from "vuex"
 import { IMain } from "./type"
-import { getPageListData, deletePageData } from "@/service/request/main/main"
+import {
+  getPageListData,
+  deletePageData,
+  createPageData,
+  editPageData
+} from "@/service/request/main/main"
 const MainModule: Module<IMain, IRootState> = {
   namespaced: true,
   state() {
@@ -47,36 +52,12 @@ const MainModule: Module<IMain, IRootState> = {
     async getPageListData({ commit }, payload: any) {
       const pageName = payload.pageName
       const pageUrl = `/${pageName}/list`
-      // let pageUrl = ""
-      // console.log(pageName)
-      // switch (pageName) {
-      //   case "users":
-      //     pageUrl = "/users/list"
-      //     break
-      //   case "role":
-      //     pageUrl = "/role/list"
-      //     break
-      //   default:
-      //     break
-      // }
       const result = await getPageListData(pageUrl, payload.queryInfo)
       const { list, totalCount } = result.data
       const changePageName =
         (pageName.slice(0, 1) as string).toLocaleUpperCase() + pageName.slice(1)
       commit(`change${changePageName}List`, list)
       commit(`change${changePageName}Count`, totalCount)
-      // switch (pageName) {
-      //   case "users":
-      //     commit("changeUsersList", list)
-      //     commit("changeUsersCount", totalCount)
-      //     break
-      //   case "role":
-      //     commit("changeRoleList", list)
-      //     commit("changeRoleCount", totalCount)
-      //     break
-      //   default:
-      //     break
-      // }
     },
     async deletePageData({ dispatch }, payload: any) {
       const { pageName, id } = payload
@@ -94,7 +75,39 @@ const MainModule: Module<IMain, IRootState> = {
           message: "删除成功"
         })
       }
+      dispatch("getPageListData", {
+        queryInfo: {
+          offset: 0,
+          size: 10
+        },
+        pageName
+      })
+    },
+    async createPageData({ dispatch }, payload: any) {
+      const { pageName, data } = payload
+      const url = `/${pageName}`
+      const result = await createPageData(url, data)
       console.log(result)
+      ElMessage({
+        type: "success",
+        message: "创建成功"
+      })
+      dispatch("getPageListData", {
+        queryInfo: {
+          offset: 0,
+          size: 10
+        },
+        pageName
+      })
+    },
+    async editPageData({ dispatch }, payload: any) {
+      const { pageName, data, id } = payload
+      const url = `/${pageName}/${id}`
+      await editPageData(url, data)
+      ElMessage({
+        type: "success",
+        message: "编辑成功"
+      })
       dispatch("getPageListData", {
         queryInfo: {
           offset: 0,
@@ -108,16 +121,6 @@ const MainModule: Module<IMain, IRootState> = {
     pageDataList(state) {
       return (pageName: string) => {
         return (state as any)[`${pageName}List`]
-        // switch (pageName) {
-        //   case "users":
-        //     return state.usersList
-        //     break
-        //   case "role":
-        //     return state.roleList
-        //     break
-        //   default:
-        //     break
-        // }
       }
     },
     pageDataCount(state) {

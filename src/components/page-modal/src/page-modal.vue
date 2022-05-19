@@ -14,9 +14,7 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button type="primary" @click="dialogVisible = false"
-            >确认</el-button
-          >
+          <el-button type="primary" @click="handleConfirmClick">确认</el-button>
         </span>
       </template>
     </el-dialog>
@@ -26,6 +24,7 @@
 <script lang="ts">
 import { defineComponent, ref, watch } from "vue"
 import HHForm from "@/base-ui/form"
+import { useStore } from "vuex"
 export default defineComponent({
   components: {
     HHForm
@@ -42,12 +41,15 @@ export default defineComponent({
     defaultInfo: {
       type: Object,
       default: () => ({})
+    },
+    pageName: {
+      type: String,
+      required: true
     }
   },
   setup(props) {
     const dialogVisible = ref(false)
     const modelValue = ref<any>({})
-    console.log(props.defaultInfo)
     watch(
       () => props.defaultInfo,
       (newValue) => {
@@ -56,9 +58,34 @@ export default defineComponent({
         }
       }
     )
+
+    const store = useStore()
+    const handleConfirmClick = () => {
+      dialogVisible.value = false
+      if (Object.keys(props.defaultInfo).length) {
+        // 编辑
+        store.dispatch("mainStore/editPageData", {
+          pageName: props.pageName,
+          data: {
+            ...modelValue.value
+          },
+          id: props.defaultInfo.id
+        })
+      } else {
+        // 新增
+        store.dispatch("mainStore/createPageData", {
+          pageName: props.pageName,
+          data: {
+            ...modelValue.value
+          }
+        })
+      }
+    }
+
     return {
       dialogVisible,
-      modelValue
+      modelValue,
+      handleConfirmClick
     }
   }
 })
