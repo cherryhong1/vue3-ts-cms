@@ -3,7 +3,7 @@
     <div class="header">
       <slot name="header"></slot>
     </div>
-    <el-form ref="formRef" label-width="100px">
+    <el-form class="form" ref="formRef" label-width="100px">
       <el-row>
         <template v-for="(formItem, index) in formItems" :key="index">
           <el-col v-bind="colLayout">

@@ -1,11 +1,15 @@
 type IFormType = "input" | "select" | "password" | "datepicker"
+type optionType = {
+  label: string
+  value: string | boolean | number
+}
 export interface IFormItem {
   type: IFormType
   label: string
   prop: string
   placeholder?: string
   rules?: any[]
-  options?: any[]
+  options?: optionType[]
   otherOptions?: any
   isHidden?: boolean
 }

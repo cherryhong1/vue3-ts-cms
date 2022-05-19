@@ -24,6 +24,20 @@ const modalFormConfig: IForm = {
       prop: "cellphone",
       placeholder: "请输入手机号",
       type: "input"
+    },
+    {
+      label: "部门",
+      prop: "departmentId",
+      type: "select",
+      placeholder: "请选择部分",
+      options: []
+    },
+    {
+      label: "角色",
+      prop: "roleId",
+      type: "select",
+      placeholder: "请选择角色",
+      options: []
     }
   ],
   labelWidth: "70px",

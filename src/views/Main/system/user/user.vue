@@ -15,20 +15,21 @@
     <pageModal
       ref="pageModalRef"
       :defaultInfo="defaultInfo"
-      :modalFormConfig="modalFormConfig"
+      :modalFormConfig="modalFormConfigRef"
       :title="title"
     ></pageModal>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue"
+import { defineComponent, computed } from "vue"
 import searchFormConfig from "./config/searchFormConfig"
 import contentTableConfig from "./config/contentConfig"
 import modalFormConfig from "./config/modalConfig"
 import { usePageSearch } from "@/hooks/usePageSearch"
 import { usePageModal } from "@/hooks/usePageModal"
 import pageModal from "@/components/page-modal"
+import { useStore } from "@/store"
 export default defineComponent({
   name: "user",
   components: {
@@ -60,13 +61,30 @@ export default defineComponent({
       handleCreateClick,
       handleEditClick
     ] = usePageModal("用户", createFn, editFn)
+
+    const store = useStore()
+    const modalFormConfigRef = computed(() => {
+      const departmentItem = modalFormConfig.formItems.find((item) => {
+        return item.prop === "departmentId"
+      })
+      departmentItem!.options = store.state.entireDepartment.map((item) => {
+        return { label: item.name, value: item.id }
+      })
+      const roleItem = modalFormConfig.formItems.find((item) => {
+        return item.prop === "roleId"
+      })
+      roleItem!.options = store.state.entireRole.map((item) => {
+        return { label: item.name, value: item.id }
+      })
+      return modalFormConfig
+    })
     return {
       searchFormConfig,
       contentTableConfig,
       handleResetClick,
       handleSearchForm,
       pageContentRef,
-      modalFormConfig,
+      modalFormConfigRef,
       handleCreateClick,
       handleEditClick,
       defaultInfo,
