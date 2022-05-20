@@ -5,9 +5,6 @@ import { ElLoading, ElMessage } from "element-plus"
 import { LoadingInstance } from "element-plus/lib/components/loading/src/loading"
 const DEFAULT_LOADING = true
 class HhRequest {
-  patch<T>(arg0: { url: string; data: any }) {
-    throw new Error("Method not implemented.")
-  }
   instance: AxiosInstance
   interceptors?: HhRequestInterceptors
   showLoading: boolean
@@ -116,6 +113,9 @@ class HhRequest {
   }
   put<T>(config: HhRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "PUT" })
+  }
+  patch<T>(config: HhRequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, method: "patch" })
   }
 }
 export default HhRequest

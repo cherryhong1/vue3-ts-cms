@@ -62,4 +62,18 @@ export function userMenusToPermission(userMenus: any[]) {
   _recurseGetPermission(userMenus)
   return permissionList
 }
+export function menuMapToLeaf(menuList: any[]) {
+  const leafList: number[] = []
+  const _recurseLeaf = (menus: any[]) => {
+    for (const menu of menus) {
+      if (menu.children) {
+        _recurseLeaf(menu.children)
+      } else {
+        leafList.push(menu.id)
+      }
+    }
+  }
+  _recurseLeaf(menuList)
+  return leafList
+}
 export { firstMenu }

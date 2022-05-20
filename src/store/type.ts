@@ -4,6 +4,7 @@ export interface IRootState {
   name: string
   entireDepartment: any[]
   entireRole: any[]
+  entireMenu: any[]
 }
 
 export interface IRootWithModule {

@@ -1,7 +1,7 @@
 import { ref } from "vue"
 import pageModal from "@/components/page-modal/src/page-modal.vue"
 
-type cbFn = () => void
+type cbFn = (item?: any) => void
 export function usePageModal(
   pageName?: string,
   createCb?: cbFn,
@@ -23,7 +23,7 @@ export function usePageModal(
     if (pageModalRef.value) {
       pageModalRef.value.dialogVisible = true
     }
-    editCb && editCb()
+    editCb && editCb(item)
     title.value = `编辑${pageName}`
   }
   return [pageModalRef, title, defaultInfo, handleCreateClick, handleEditClick]

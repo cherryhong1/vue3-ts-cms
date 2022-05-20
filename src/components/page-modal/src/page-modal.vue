@@ -11,6 +11,7 @@
       center
     >
       <HHForm v-model="modelValue" v-bind="modalFormConfig"></HHForm>
+      <slot></slot>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
@@ -42,6 +43,10 @@ export default defineComponent({
       type: Object,
       default: () => ({})
     },
+    otherInfo: {
+      type: Object,
+      default: () => ({})
+    },
     pageName: {
       type: String,
       required: true
@@ -67,7 +72,8 @@ export default defineComponent({
         store.dispatch("mainStore/editPageData", {
           pageName: props.pageName,
           data: {
-            ...modelValue.value
+            ...modelValue.value,
+            ...props.otherInfo
           },
           id: props.defaultInfo.id
         })
@@ -76,7 +82,8 @@ export default defineComponent({
         store.dispatch("mainStore/createPageData", {
           pageName: props.pageName,
           data: {
-            ...modelValue.value
+            ...modelValue.value,
+            ...props.otherInfo
           }
         })
       }

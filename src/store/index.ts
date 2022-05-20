@@ -10,7 +10,8 @@ const store = createStore<IRootState>({
     return {
       name: "",
       entireDepartment: [],
-      entireRole: []
+      entireRole: [],
+      entireMenu: []
     }
   },
   mutations: {
@@ -19,6 +20,9 @@ const store = createStore<IRootState>({
     },
     roleMutation(state, list: any[]) {
       state.entireRole = list
+    },
+    menuMutation(state, list: any[]) {
+      state.entireMenu = list
     }
   },
   actions: {
@@ -35,6 +39,12 @@ const store = createStore<IRootState>({
       const { list: roleList } = roleResult.data
       commit("departmentMutation", departmentList)
       commit("roleMutation", roleList)
+      const menuResult = await getPageListData("/menu/list", {
+        offset: 0,
+        size: 1000
+      })
+      const { list: menuList } = menuResult.data
+      commit("menuMutation", menuList)
     }
   },
   modules: {
