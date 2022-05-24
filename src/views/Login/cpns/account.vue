@@ -31,8 +31,8 @@ export default defineComponent({
           trigger: "blur"
         },
         {
-          pattern: /^[a-z0-9]{6,8}$/,
-          message: "账号长度为6-8个字节",
+          pattern: /^[a-z0-9]{1,18}$/,
+          message: "账号长度为1-18个字节",
           trigger: "blur"
         }
       ],
